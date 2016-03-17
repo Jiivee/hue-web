@@ -1,3 +1,4 @@
-main {{test}}
-<input type="button" value="set color" ng-click="setColor()"></input>
-<input type="number" ng-model="hue"></input>
+<div>Hue: <input type="number" ng-model="hue" min="0" max="65280"></input></div>
+<div>Brightness: <input type="number" ng-model="brightness" min="0" max="254"></input></div>
+<div>Saturation: <input type="number" ng-model="saturation" min="0" max="254"></input></div>
+<div><input type="button" value="set color" ng-click="setColor()"></input></div>
