@@ -36,6 +36,8 @@ angular.module('hueWebApp')
     $scope.hue = 0;
     $scope.saturation = 0;
     $scope.brightness = 0;
+    $scope.lightTime = 10;
+    $scope.motionStatus = true;
 
     $scope.setColor = function() {
       console.log('setColor');
@@ -57,6 +59,39 @@ angular.module('hueWebApp')
         }
       );
     };
+
+    $scope.setLightTime = function() {
+      var data = {
+        lighttime: $scope.lightTime
+      };
+      var request = $http({
+        method: 'post',
+        url: 'http://localhost:3003/motion/lighttime',
+        data: data
+      });
+      request.success(
+        function(response) {
+          console.log(response);
+        }
+      );
+    }
+
+    $scope.$watch('motionStatus', function() {
+      console.log($scope.motionStatus);
+      var data = {
+        motionStatus: $scope.motionStatus
+      };
+      var request = $http({
+        method: 'post',
+        url: 'http://localhost:3003/motion/status',
+        data: data
+      });
+      request.success(
+        function(response) {
+          console.log(response);
+        }
+      );
+    }, true);
 
     $scope.$watch('hue', function() {
       var data = {

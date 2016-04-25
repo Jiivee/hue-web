@@ -1,3 +1,8 @@
+<div>Light on after motion: <input type="text" ng-model="lightTime"></input></div>
+<div><input type="button" value="Set time" ng-click="setLightTime()"></input></div>
+<input ng-model="motionStatus" ng-value="true" type="radio">
+<input ng-model="motionStatus" ng-value="false" type="radio">
+
 <div>Hue: <input type="text" ng-model="hue" min="0" max="65280"></input></div>
 <div>Brightness: <input type="number" ng-model="brightness" min="0" max="254"></input></div>
 <div>Saturation: <input type="number" ng-model="saturation" min="0" max="254"></input></div>
