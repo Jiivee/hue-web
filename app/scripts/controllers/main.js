@@ -8,10 +8,13 @@
  * Controller of the hueWebApp
  */
 angular.module('hueWebApp')
-  .controller('MainCtrl', function ($scope, $http) {
+  .controller('MainCtrl', function ($scope, $http, $timeout) {
     $scope.test = 'aaaaaa';
+    var ipAddress = 'http://192.168.1.5:3003/';
+    var timeoutPromise;
+    var delayInMs = 500;
 
-    $http.get('http://localhost:3003/lights').success(function(data) {
+    $http.get(ipAddress + 'lights').success(function(data) {
       console.log(data.state);
       $scope.hue = data.state.hue;
       $scope.saturation = data.state.sat;
@@ -20,7 +23,7 @@ angular.module('hueWebApp')
     });
     $scope.test = 90;
 
-    $http.get('http://localhost:3003/lights/status/all').success(function(data) {
+    $http.get(ipAddress + 'lights/status/all').success(function(data) {
       console.log(data[1]);
       var lamps = data;
       $scope.activeLamps = [];
@@ -49,7 +52,7 @@ angular.module('hueWebApp')
       console.log(data);
       var request = $http({
         method: 'post',
-        url: 'http://localhost:3003/lights',
+        url: ipAddress + 'lights',
         data: data
       });
 
@@ -66,7 +69,7 @@ angular.module('hueWebApp')
       };
       var request = $http({
         method: 'post',
-        url: 'http://localhost:3003/motion/lighttime',
+        url: ipAddress + 'motion/lighttime',
         data: data
       });
       request.success(
@@ -74,7 +77,7 @@ angular.module('hueWebApp')
           console.log(response);
         }
       );
-    }
+    };
 
     $scope.$watch('motionStatus', function() {
       console.log($scope.motionStatus);
@@ -83,7 +86,7 @@ angular.module('hueWebApp')
       };
       var request = $http({
         method: 'post',
-        url: 'http://localhost:3003/motion/status',
+        url: ipAddress + 'motion/status',
         data: data
       });
       request.success(
@@ -93,24 +96,27 @@ angular.module('hueWebApp')
       );
     }, true);
 
-    $scope.$watch('hue', function() {
+    $scope.$watch('[hue, brightness]', function() {
       var data = {
         hue: $scope.hue,
         brightness: $scope.brightness,
         saturation: $scope.saturation
       };
-      console.log(data);
-      var request = $http({
-        method: 'post',
-        url: 'http://localhost:3003/lights',
-        data: data
-      });
 
-      request.success(
-        function(response) {
-          console.log(response);
-        }
-      );
+      $timeout.cancel(timeoutPromise);  //does nothing, if timeout alrdy done
+      timeoutPromise = $timeout(function(){   //Set timeout
+        var request = $http({
+          method: 'post',
+          url: ipAddress + 'lights',
+          data: data
+        });
+
+        request.success(
+          function(response) {
+            console.log(response);
+          }
+        );
+      },delayInMs);
     }, true);
 
   });
