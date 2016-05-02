@@ -9,7 +9,6 @@
  */
 angular.module('hueWebApp')
   .controller('MainCtrl', function ($scope, $http, $timeout) {
-    $scope.test = 'aaaaaa';
     var ipAddress = 'http://192.168.1.5:3003/';
     var timeoutPromise;
     var delayInMs = 500;
@@ -96,7 +95,7 @@ angular.module('hueWebApp')
       );
     }, true);
 
-    $scope.$watch('[hue, brightness]', function() {
+    $scope.$watch('[saturation, hue, brightness]', function() {
       var data = {
         hue: $scope.hue,
         brightness: $scope.brightness,

@@ -1,18 +1,61 @@
-<div>Light on after motion: <input type="text" ng-model="lightTime"></input></div>
-<div><input type="button" value="Set time" ng-click="setLightTime()"></input></div>
+<input class="radio-on" id="light1" ng-model="selectedLights.light1" ng-value="1" type="checkbox">
+<label for="light1">1</label>
+<input class="radio-on" id="light2" ng-model="selectedLights.light2" ng-value="2" type="checkbox">
+<label for="light2">2</label>
+<input class="radio-on" id="light3" ng-model="selectedLights.light3" ng-value="3" type="checkbox">
+<label for="light3">3</label>
+<input class="radio-on" id="light4" ng-model="selectedLights.light4" ng-value="4" type="checkbox">
+<label for="light4">4</label>
+<input class="radio-on" id="light5" ng-model="selectedLights.light5" ng-value="5" type="checkbox">
+<label for="light5">5</label>
+<input class="radio-on" id="light6" ng-model="selectedLights.light6" ng-value="6" type="checkbox">
+<label for="light6">6</label>
+<input class="radio-on" id="lightall" ng-model="selectedLights.lightall" ng-value="all" type="checkbox">
+<label for="lightall">All</label>
+
+
+
+<div>
+  <div>Light:</div>
+  <input class="radio-on" id="light-on" ng-model="lightOn" ng-value="true" type="radio">
+  <label for="light-on">On</label>
+  <input class="radio-off" id="light-off" ng-model="lightOn" ng-value="false" type="radio">
+  <label for="light-off">Off</label>
+</div>
+
 <input ng-model="motionStatus" ng-value="true" type="radio">
 <input ng-model="motionStatus" ng-value="false" type="radio">
 
-<div>Hue: <input type="text" ng-model="hue" min="0" max="65280"></input></div>
-<div>Brightness: <input type="number" ng-model="brightness" min="0" max="254"></input></div>
-<div>Saturation: <input type="number" ng-model="saturation" min="0" max="254"></input></div>
-<div><input type="button" value="set color" ng-click="setColor()"></input></div>
+<div>Light color:</div>
 <div class="spectrum">
   <img class="spectrum-img" src="../images/sp.png">
-  <input class="hue-slider" type="range" ng-model="hue" max="65280"></input>
+  <input class="hue-slider slider-thumb" type="range" ng-model="hue" max="65280"></input>
 </div>
+<div>Light brightness:</div>
 <div class="brightness">
-  <input class="hue-slider" type="range" ng-model="brightness" max="254"></input>
+  <input class="slider slider-thumb slider-thumb-margin" type="range" ng-model="brightness" max="254"></input>
+</div>
+<div>Light saturation:</div>
+<div class="saturation">
+  <input class="slider slider-thumb slider-thumb-margin" type="range" ng-model="saturation" max="254"></input>
 </div>
 
-<input type="text" ng-model="test"></input>
+<div>
+  <div>Motion detection:</div>
+  <input class="radio-on" id="motion-on" ng-model="motionStatus" ng-value="true" type="radio">
+  <label for="motion-on">On</label>
+  <input class="radio-off" id="motion-off" ng-model="motionStatus" ng-value="false" type="radio">
+  <label for="motion-off">Off</label>
+</div>
+
+<div>
+  <div>Motion detection type:</div>
+  <input class="radio-on" id="motion-all" ng-model="motionType" ng-value="true" type="radio">
+  <label for="motion-all">All time</label>
+  <input class="radio-off" id="motion-door" ng-model="motionType" ng-value="false" type="radio">
+  <label for="motion-door">Door watch</label>
+</div>
+
+<div>Switch off light when no motion detected after: <input type="text" ng-model="lightTime"></input></div>
+<div><input type="button" value="Set time" ng-click="setLightTime()"></input></div>
+

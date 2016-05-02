@@ -2,6 +2,11 @@ body {
   margin: 0;
 }
 
+.container {
+  max-width: 500px;
+  padding: 5px;
+}
+
 .spectrum {
   height: 50px;
 }
@@ -11,7 +16,7 @@ body {
   margin-left: -0.5px;
   -webkit-appearance: none;
   width: 500px;
-  max-width: 100%;
+  max-width: calc(100% - 10px);
   position: absolute;
   height: 36px;
   cursor: pointer;
@@ -20,17 +25,106 @@ body {
   outline: none;
 }
 
-.hue-slider::-webkit-slider-thumb {
-  border: 1px solid #000000;
-  height: 36px;
-  width: 15px;
-  border-radius: 5px;
-  background: #FFFFFF;
-  cursor: pointer;
+.slider {
   -webkit-appearance: none;
+  margin: 18px 0;
+  width: 100%;
+  outline: none;
+}
+
+.slider::focus {
+  outline: none;
+}
+
+.slider::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 10px;
+  cursor: pointer;
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  background: #999;
+  border-radius: 1.3px;
+  border: 0.2px solid #010101;
+  outline: none;
+}
+
+.slider-thumb::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  border: 1px solid #000000;
+  height: 32px;
+  width: 14px;
+  border-radius: 3px;
+  background: #ffffff;
+  cursor: pointer;
+  margin-top: 1px; /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d; /* Add cool effects to your sliders! */
+}
+
+.slider-thumb-margin::-webkit-slider-thumb {
+  margin-top: -12px !important;
 }
 
 .spectrum-img {
-  max-width: 100%;
+  width: calc(100% - 10px);
+  max-width: 500px;
   position: absolute;
+}
+
+
+input[type=radio], input[type=checkbox] {
+    display:none;
+    margin:10px;
+}
+
+input[type=radio] + label {
+    -moz-box-shadow:inset 1px 1px 0px 0px rgb(240,240,240);
+    -webkit-box-shadow:inset 1px 1px 0px 0px rgb(240,240,240);
+    box-shadow:inset 1px 1px 0px 0px rgb(240,240,240);
+    display:inline-block;
+    background-color: rgb(198, 198, 198);
+    border: 1px solid rgb(150,150,150);
+    height: 30px;
+    width: calc(50% - 5px);
+    text-align: center;
+    padding-top: 9px;
+    margin-bottom: 0px;
+    user-select: none;
+}
+
+input[type=checkbox] + label {
+    -moz-box-shadow:inset 1px 1px 0px 0px rgb(240,240,240);
+    -webkit-box-shadow:inset 1px 1px 0px 0px rgb(240,240,240);
+    box-shadow:inset 1px 1px 0px 0px rgb(240,240,240);
+    display:inline-block;
+    background-color: rgb(198, 198, 198);
+    border: 1px solid rgb(150,150,150);
+    height: 30px;
+    width: 39px;
+    text-align: center;
+    padding-top: 9px;
+    margin-bottom: 0px;
+    user-select: none;
+}
+
+.radio-on:checked + label {
+    -moz-box-shadow:inset 1px 1px 0px 0px rgb(202,239,171);
+    -webkit-box-shadow:inset 1px 1px 0px 0px rgb(202,239,171);
+    box-shadow:inset 1px 1px 0px 0px rgb(202,239,171);
+    background-color: rgb(119,212,42);
+    border:1px solid rgb(44,160,26);
+    font-weight:bold;
+    font-style:normal;
+    text-decoration:none;
+    text-shadow:1px 1px 0px #aade7c;
+}
+
+.radio-off:checked + label {
+    -moz-box-shadow:inset 1px 1px 0px 0px rgb(254,80,80);
+    -webkit-box-shadow:inset 1px 1px 0px 0px rgb(254,80,80);
+    box-shadow:inset 1px 1px 0px 0px rgb(254,80,80);
+    background-color: rgb(219,41,44);
+    border:1px solid rgb(170,20,22);
+    font-weight:bold;
+    font-style:normal;
+    text-decoration:none;
+    text-shadow:1px 1px 0px rgb(254,80,80);
 }
