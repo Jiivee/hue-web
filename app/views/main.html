@@ -1,17 +1,8 @@
-<input class="radio-on" id="light1" ng-model="selectedLights.light1" ng-value="1" type="checkbox">
-<label for="light1">1</label>
-<input class="radio-on" id="light2" ng-model="selectedLights.light2" ng-value="2" type="checkbox">
-<label for="light2">2</label>
-<input class="radio-on" id="light3" ng-model="selectedLights.light3" ng-value="3" type="checkbox">
-<label for="light3">3</label>
-<input class="radio-on" id="light4" ng-model="selectedLights.light4" ng-value="4" type="checkbox">
-<label for="light4">4</label>
-<input class="radio-on" id="light5" ng-model="selectedLights.light5" ng-value="5" type="checkbox">
-<label for="light5">5</label>
-<input class="radio-on" id="light6" ng-model="selectedLights.light6" ng-value="6" type="checkbox">
-<label for="light6">6</label>
-<input class="radio-on" id="lightall" ng-model="selectedLights.lightall" ng-value="all" type="checkbox">
-<label for="lightall">All</label>
+
+<span ng-repeat="light in lights">
+  <input class="radio-on" id="alight{{light.id}}" ng-model="light.selected" ng-disabled="light.disabled" type="checkbox">
+  <label class="radio-disabled-{{light.disabled}}" for="alight{{light.id}}">{{light.name}}</label>
+</span>
 
 
 
@@ -22,9 +13,6 @@
   <input class="radio-off" id="light-off" ng-model="lightOn" ng-value="false" type="radio">
   <label for="light-off">Off</label>
 </div>
-
-<input ng-model="motionStatus" ng-value="true" type="radio">
-<input ng-model="motionStatus" ng-value="false" type="radio">
 
 <div>Light color:</div>
 <div class="spectrum">

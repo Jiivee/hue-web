@@ -105,6 +105,11 @@ input[type=checkbox] + label {
     user-select: none;
 }
 
+.radio-disabled-true {
+  background-color: rgb(240, 240, 240) !important;
+  border: 1px solid rgb(210,210,210) !important;
+}
+
 .radio-on:checked + label {
     -moz-box-shadow:inset 1px 1px 0px 0px rgb(202,239,171);
     -webkit-box-shadow:inset 1px 1px 0px 0px rgb(202,239,171);

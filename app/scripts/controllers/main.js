@@ -9,10 +9,31 @@
  */
 angular.module('hueWebApp')
   .controller('MainCtrl', function ($scope, $http, $timeout) {
-    var ipAddress = 'http://192.168.1.5:3003/';
+    var ipAddress = 'http://192.168.1.4:3003/';
     var timeoutPromise;
     var delayInMs = 500;
 
+    $scope.disabled = true;
+
+    $scope.lights = [
+      {id:1, name:1, selected: false, disabled: true},
+      {id:2, name:2, selected: false, disabled: true},
+      {id:3, name:3, selected: false, disabled: true},
+      {id:4, name:4, selected: false, disabled: true},
+      {id:5, name:5, selected: false, disabled: true},
+      {id:6, name:6, selected: false, disabled: true}
+    ];
+
+    $scope.getSelectedLights = function() {
+      var selected = [];
+      angular.forEach($scope.lights, function(light){
+        if (light.selected) {
+          selected.push(light.name);
+        }
+      });
+      return selected;
+    };
+    /*
     $http.get(ipAddress + 'lights').success(function(data) {
       console.log(data.state);
       $scope.hue = data.state.hue;
@@ -20,10 +41,8 @@ angular.module('hueWebApp')
       $scope.brightness = data.state.bri;
 
     });
-    $scope.test = 90;
-
+  */
     $http.get(ipAddress + 'lights/status/all').success(function(data) {
-      console.log(data[1]);
       var lamps = data;
       $scope.activeLamps = [];
       for (var lamp in lamps) {
@@ -31,6 +50,10 @@ angular.module('hueWebApp')
           $scope.activeLamps.push(lamps[lamp]);
         }
       }
+      angular.forEach($scope.activeLamps, function(lamp) {
+        var lampNumber = lamp.name.split(' ')[2];
+        $scope.lights[lampNumber-1].disabled = false;
+      });
       console.log($scope.activeLamps);
 
     });
@@ -46,7 +69,8 @@ angular.module('hueWebApp')
       var data = {
         hue: $scope.hue,
         brightness: $scope.brightness,
-        saturation: $scope.saturation
+        saturation: $scope.saturation,
+        lights: $scope.getSelectedLights()
       };
       console.log(data);
       var request = $http({
@@ -78,10 +102,42 @@ angular.module('hueWebApp')
       );
     };
 
+    $scope.$watch('lights', function() {
+      var lightN = $scope.getSelectedLights()[0];
+      if (lightN !== undefined) {
+        $http.get(ipAddress + 'lights/' + lightN).success(function(data) {
+          console.log('data: ' + data);
+          $scope.hue = data.state.hue;
+          $scope.saturation = data.state.sat;
+          $scope.brightness = data.state.bri;
+          $scope.lightOn = data.state.on;
+        });
+      }
+    }, true);
+
+    $scope.$watch('lightOn', function() {
+      console.log($scope.lightOn);
+      var data = {
+        on: $scope.lightOn,
+        lights: $scope.getSelectedLights()
+      };
+      var request = $http({
+        method: 'post',
+        url: ipAddress + 'lights/status',
+        data: data
+      });
+      request.success(
+        function(data) {
+          console.log(data);
+        }
+      );
+    }, true);
+
     $scope.$watch('motionStatus', function() {
       console.log($scope.motionStatus);
       var data = {
-        motionStatus: $scope.motionStatus
+        motionStatus: $scope.motionStatus,
+        lights: $scope.getSelectedLights()
       };
       var request = $http({
         method: 'post',
@@ -99,11 +155,13 @@ angular.module('hueWebApp')
       var data = {
         hue: $scope.hue,
         brightness: $scope.brightness,
-        saturation: $scope.saturation
+        saturation: $scope.saturation,
+        lights: $scope.getSelectedLights()
       };
 
       $timeout.cancel(timeoutPromise);  //does nothing, if timeout alrdy done
       timeoutPromise = $timeout(function(){   //Set timeout
+        console.log(data);
         var request = $http({
           method: 'post',
           url: ipAddress + 'lights',
@@ -115,6 +173,11 @@ angular.module('hueWebApp')
             console.log(response);
           }
         );
+
+        request.error(
+          function(response) {
+            console.log(response);
+          });
       },delayInMs);
     }, true);
 
