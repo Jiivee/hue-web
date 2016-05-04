@@ -1,7 +1,10 @@
-<span ng-repeat="light in lights">
-  <input class="radio-on" id="alight{{light.id}}" ng-model="light.selected" ng-disabled="light.disabled" type="checkbox">
-  <label class="radio-disabled-{{light.disabled}}" for="alight{{light.id}}">{{light.name}}</label>
-</span>
+<div class="section ligths-to-control">
+<div class="section-header">Available ligths to control:</div>
+  <span ng-repeat="light in lights">
+    <input class="radio-on" id="alight{{light.id}}" ng-model="light.selected" ng-disabled="light.disabled" type="checkbox">
+    <label class="radio-disabled-{{light.disabled}}" for="alight{{light.id}}">{{light.name}}</label>
+  </span>
+</div>
 
 
 
@@ -43,9 +46,9 @@
 <div class="section">
   <div class="section-header">Motion detection type:</div>
   <input class="radio-on" id="motion-all" ng-model="motionType" ng-value="true" type="radio">
-  <label for="motion-all">All time</label>
-  <input class="radio-off" id="motion-door" ng-model="motionType" ng-value="false" type="radio">
-  <label for="motion-door">Door watch</label>
+  <label for="motion-all">Timer</label>
+  <input class="radio-on" id="motion-door" ng-model="motionType" ng-value="false" type="radio">
+  <label for="motion-door">Switch</label>
 </div>
 
 <div class="section">
