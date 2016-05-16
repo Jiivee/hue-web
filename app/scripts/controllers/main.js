@@ -2,7 +2,7 @@
 
 angular.module('hueWebApp')
   .controller('MainCtrl', function ($scope, $http, $timeout) {
-    var ipAddress = 'http://192.168.1.4:3003/';
+    var ipAddress = 'http://192.168.1.6:3003/';
     var timeoutPromise;
     var delayInMs = 500;
     $scope.lights = [];
@@ -61,6 +61,7 @@ angular.module('hueWebApp')
       var data = {
         lighttime: $scope.lightTime
       };
+      console.log(data);
       var request = $http({
         method: 'post',
         url: ipAddress + 'motion/lighttime',
